@@ -34,7 +34,7 @@ resolver : yupResolver(userFormSchema)
       <div className='login-container'>
         <img src={logo} alt='logo' />
         <form
-          onSubmit={() => { }/* HANDLE SUBMIT */}
+          onSubmit={handleSubmit(onSubmit)}/* HANDLE SUBMIT */
           style={{ display: 'flex', flexDirection: 'column' }}
         >
         
@@ -44,7 +44,9 @@ resolver : yupResolver(userFormSchema)
             name='firstName'
             placeholder='Tu Nombre'
             id='firstName'
+            {...register('firstName', {required: true, maxLength:20})} // se debería hacer en el SCHEMA, pero lo hacemos aquí en el input por cuestiones de práctica.
           />
+          <p>{errors.firstName?.message}</p>
 
           <label htmlFor='lastName'>Apellido</label>
           <input
@@ -52,15 +54,19 @@ resolver : yupResolver(userFormSchema)
             name='lastName'
             placeholder='Tu Apellido'
             id='lastName'
+            {...register('lastName', {pattern: /^[A-Za-z]+$/i })}
           />
-
+          <p>{errors.lastName?.message}</p>
+          
           <label htmlFor='age'>Edad</label>
           <input
             type='number'
             name='age'
             placeholder='Tu Edad'
             id='age'
+            {...register('age')}
           />
+          <p>{errors.lastName?.message}</p>
 
           <label htmlFor='gender'>Genero</label>
           <select name='gender' id='gender'>
@@ -69,6 +75,8 @@ resolver : yupResolver(userFormSchema)
             <option value='F'>Femenino</option>
             <option value='O'>Otro</option>
           </select>
+          <p>{errors.gender?.message}</p>
+
 
           <label htmlFor='email'>Email</label>
           <input
@@ -76,14 +84,18 @@ resolver : yupResolver(userFormSchema)
             name='email'
             placeholder='correo@mail.com'
             id='email'
+            {...register('email')}
           />
+          <p>{errors.email?.message}</p>
 
           <label htmlFor='password'>Password</label>
           <input
             type='password'
             name='password'
             id='password'
+            {...register('password')}
           />
+          <p>{errors.password?.message}</p>
 
           <button type='submit'>
             Iniciar Sesion
